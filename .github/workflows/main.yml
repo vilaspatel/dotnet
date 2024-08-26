@@ -1,0 +1,19 @@
+name: test-Conditions
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+
+permissions:
+  contents: read
+
+jobs:
+  web_app_build_deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - run : echo "done"
+      if: ( ${{ inputs.environment }} == "dev" )
+
