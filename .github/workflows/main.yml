@@ -23,5 +23,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run : echo "done"
-      if: ( ${{ inputs.environment }} == "dev" )
+      if:  ${{ inputs.environment  == 'dev' }}
 
