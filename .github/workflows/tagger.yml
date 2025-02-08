@@ -18,13 +18,13 @@ jobs:
         id: create_release
         uses: ncipollo/release-action@v1
         with:
-          tag: v0.7.0
-          name: Release v0.7.0
+          tag: v0.8.0
+          name: Release v0.8.0
           body: ${{ steps.changelog.outputs.changelog }}
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Update Major Version Tag
         run: |
-          MAJOR_VERSION=v$(echo "v0.7.0" | grep -oE '^v[0-9]+')
+          MAJOR_VERSION=v$(echo "v0.8.0" | grep -oE '^v[0-9]+')
           git tag -f $MAJOR_VERSION
           git push origin $MAJOR_VERSION --force
         env:
