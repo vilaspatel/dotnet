@@ -9,30 +9,16 @@ jobs:
     steps:
     - name: Checkout the repository
       uses: actions/checkout@v3
-    - name: Create Release
-      uses: softprops/action-gh-release@v2
+    - name: Generate changelog
+      id: changelog
+      uses: metcalfc/changelog-generator@v4.3.1 #TODO: bump this after release
       with:
-        tag_name: v0.6.0
-        draft: false
-        prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Generate Release Notes
-      id: release_notes
-      uses: gableroux/generate-github-release-notes@v0.1.2
-      with:
-         repository: ${{ github.repository }}
-         base_tag: v0.5.0
-         head_tag: v0.6.0
-         github_token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Create Release
-      uses: softprops/action-gh-release@v2
-      with:
-          # this is the description of the release from previous step
-        body: ${{ steps.release_notes.outputs.notes }}
-        tag_name: v0.6.0
-        draft: false
-        prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        myToken: ${{ secrets.GITHUB_TOKEN }}
+        head-ref: ${{ github.sha }} #add 'origin/` in front of your branch name
+        base-ref: 'v0.6.0'
+        fetch: false
+    - name: Get the changelog
+      run: |
+        cat << "EOF"
+        ${{ steps.changelog.outputs.changelog }}
+        EOF
