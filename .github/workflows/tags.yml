@@ -14,9 +14,6 @@ jobs:
       uses: metcalfc/changelog-generator@v4.3.1 #TODO: bump this after release
       with:
         myToken: ${{ secrets.GITHUB_TOKEN }}
-        head-ref: ${{ github.sha }} #add 'origin/` in front of your branch name
-        base-ref: 'v0.4.0'
-        fetch: false
     - name: Get the changelog
       run: |
         cat << "EOF"
