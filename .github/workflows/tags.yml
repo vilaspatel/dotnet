@@ -10,9 +10,21 @@ jobs:
     - name: Checkout the repository
       uses: actions/checkout@v3
     - name: Generate Release Notes
+      id: release_notes
       uses: gableroux/generate-github-release-notes@v0.1.2
       with:
-        repository: ${{ github.repository }}
-        base_tag: v0.2.0
-        head_tag: ${{ github.sha }}
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+         repository: ${{ github.repository }}
+         base_tag: v0.2.0
+         head_tag: ${{ github.sha }}
+         github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+          # this is the description of the release from previous step
+        body: ${{ steps.release_notes.outputs.notes }}
+        tag_name: v0.3.0
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
