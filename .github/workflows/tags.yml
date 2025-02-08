@@ -14,8 +14,8 @@ jobs:
       uses: gableroux/generate-github-release-notes@v0.1.2
       with:
          repository: ${{ github.repository }}
-         base_tag: v0.4.0
-         head_tag: ${{ github.sha }}
+         base_tag: v0.5.0
+         head_tag: v0.6.0
          github_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create Release
@@ -23,7 +23,7 @@ jobs:
       with:
           # this is the description of the release from previous step
         body: ${{ steps.release_notes.outputs.notes }}
-        tag_name: v0.5.0
+        tag_name: v0.6.0
         draft: false
         prerelease: false
       env:
